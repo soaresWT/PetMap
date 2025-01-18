@@ -14,9 +14,14 @@ const icon = L.icon({
 
 export default function MapWithConfirmation() {
   const [position, setPosition] = useState<[number, number] | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && "geolocation" in navigator) {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient && "geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
@@ -32,7 +37,7 @@ export default function MapWithConfirmation() {
         }
       );
     }
-  }, []);
+  }, [isClient]);
 
   return (
     <Flex

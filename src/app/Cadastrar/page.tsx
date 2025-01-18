@@ -1,11 +1,16 @@
 "use client";
 import CommonWrapper from "@/components/CommonWrapper";
-import GetLocation from "@/components/GetLocation";
+import dynamic from "next/dynamic";
+
+const DynamicComponentWithNoSSR = dynamic(
+  () => import("@/components/GetLocation"),
+  { ssr: false }
+);
 
 export default function Cadastrar() {
   return (
     <CommonWrapper>
-      <GetLocation />
+      <DynamicComponentWithNoSSR />
     </CommonWrapper>
   );
 }

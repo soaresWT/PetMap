@@ -1,3 +1,4 @@
+"use client";
 import { Flex, Text, Card, Heading, Link } from "@radix-ui/themes";
 import CommonWrapper from "@/components/CommonWrapper";
 import Image from "next/image";
