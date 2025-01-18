@@ -16,7 +16,7 @@ export default function MapWithConfirmation() {
   const [position, setPosition] = useState<[number, number] | null>(null);
 
   useEffect(() => {
-    if ("geolocation" in navigator) {
+    if (typeof window !== "undefined" && "geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
