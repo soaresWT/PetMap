@@ -2,7 +2,6 @@
 import { Flex, Text, Card, Heading, Link } from "@radix-ui/themes";
 import CommonWrapper from "@/components/CommonWrapper";
 import Image from "next/image";
-import ImageUpload from "@/components/FormUpload";
 
 export default function Home() {
   return (
@@ -138,12 +137,6 @@ export default function Home() {
             <Link href="/Cadastrar">Acesse Agora!</Link>
           </Text>
         </Card>
-
-        <ImageUpload
-          onUploadSuccess={(url: string) =>
-            console.log(`Upload successful: ${url}`)
-          }
-        />
       </Flex>
     </CommonWrapper>
   );

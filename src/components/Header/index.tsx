@@ -1,4 +1,4 @@
-import { Flex, Text } from "@radix-ui/themes";
+import { Flex, Text, Link } from "@radix-ui/themes";
 
 export default function Header() {
   return (
@@ -16,7 +16,9 @@ export default function Header() {
         zIndex: 1000,
       }}
     >
-      <Text>PetMap</Text>
+      <Text>
+        <Link href="/">PetMap</Link>
+      </Text>
     </Flex>
   );
 }
