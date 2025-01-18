@@ -1,101 +1,142 @@
+import { Flex, Text, Card, Heading, Link } from "@radix-ui/themes";
+import CommonWrapper from "@/components/CommonWrapper";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <CommonWrapper>
+      <Flex
+        direction="column"
+        align="center"
+        style={{ gap: "1rem", padding: "1rem" }}
+      >
+        <Heading weight="bold">📸 Capture, Localize, Transforme!</Heading>
+        <Card style={{ width: "100%", maxWidth: "800px", padding: "1rem" }}>
+          <Flex
+            direction={{ initial: "column", md: "row" }}
+            style={{ gap: "1rem" }}
           >
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/Cat2.jpg"
+              alt="Imagem de um animal de rua"
+              width={400}
+              height={600}
+              style={{ width: "100%", height: "auto", borderRadius: "8px" }}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+            <Text style={{ textAlign: "justify", marginTop: "1rem" }}>
+              Nosso sistema conecta pessoas apaixonadas por ajudar animais de
+              rua com soluções práticas para transformar suas vidas. Basta tirar
+              uma foto do animal de rua, e nós cuidamos do resto. A plataforma
+              registra automaticamente a localização e mapeia esses dados,
+              criando um retrato detalhado da situação na sua cidade.
+            </Text>
+          </Flex>
+        </Card>
+        <Card style={{ width: "100%", maxWidth: "800px", padding: "1rem" }}>
+          <Text style={{ textAlign: "justify" }}>
+            <strong>O problema dos animais de rua</strong>
+            <br />é uma questão urgente que afeta tanto os animais quanto a
+            saúde pública. Milhões de cães e gatos vivem abandonados nas ruas,
+            representando riscos à saúde e segurança da população. A falta de
+            políticas públicas eficazes e infraestrutura adequada dificulta a
+            solução desse problema.
+          </Text>
+        </Card>
+        <Card
+          style={{
+            width: "100%",
+            maxWidth: "800px",
+            padding: "1rem",
+            marginTop: "1rem",
+          }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <Text style={{ textAlign: "justify" }}>
+            <strong>Por Que Isso Importa?</strong>
+            <ul>
+              <li>
+                <strong>Saúde Pública: </strong>Animais de rua podem transmitir
+                doenças como raiva e leishmaniose.
+              </li>
+              <li>
+                <strong>Bem-Estar Animal: </strong>Muitos desses animais vivem
+                em condições precárias e necessitam de ajuda urgente.
+              </li>
+              <li>
+                <strong>Segurança Urbana: </strong>Animais abandonados podem
+                causar acidentes e gerar insegurança.
+              </li>
+            </ul>
+            A solução começa com a coleta e mapeamento de informações precisas
+            sobre a localização desses animais, permitindo ações mais eficazes e
+            rápidas.
+          </Text>
+        </Card>
+        <Card
+          style={{
+            width: "100%",
+            maxWidth: "800px",
+            padding: "1rem",
+            marginTop: "1rem",
+          }}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <Text style={{ textAlign: "justify" }}>
+            <strong>Por que Participar?</strong>
+            <ul>
+              <li>
+                🐾 Apoie o Bem-Estar Animal: Facilite ações de resgate e
+                cuidados.
+              </li>
+              <li>
+                🗺️ Mapeamento Inteligente: Visualize áreas com maior
+                concentração de animais.
+              </li>
+              <li>
+                🤝 Junte-se a uma Comunidade: Faça parte de uma rede
+                colaborativa engajada em mudar realidades.
+              </li>
+            </ul>
+          </Text>
+        </Card>
+        <Card
+          style={{
+            width: "100%",
+            maxWidth: "800px",
+            padding: "1rem",
+            marginTop: "1rem",
+          }}
         >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <Text style={{ textAlign: "justify" }}>
+            <strong>Como Funciona?</strong>
+            <ul>
+              <li>Fotografe: Registre o animal diretamente pelo app.</li>
+              <li>Envie: Suba a foto com um clique.</li>
+              <li>
+                Acompanhe: Veja o mapa crescer com a colaboração de todos.
+              </li>
+            </ul>
+          </Text>
+        </Card>
+        <Card
+          style={{
+            width: "100%",
+            maxWidth: "800px",
+            padding: "1rem",
+            marginTop: "1rem",
+          }}
+        >
+          <Text style={{ textAlign: "justify" }}>
+            <strong>Faça Parte da Solução</strong>
+            <br />
+            Animais de rua precisam de visibilidade, cuidado e apoio. Sua
+            participação pode salvar vidas!
+            <br />
+            <br />
+            👉 Comece agora e ajude a transformar o futuro desses animais.
+            <br />
+            <Link href="/Cadastrar">Acesse Agora!</Link>
+          </Text>
+        </Card>
+      </Flex>
+    </CommonWrapper>
   );
 }
