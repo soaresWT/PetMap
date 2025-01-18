@@ -1,5 +1,10 @@
+import CommonWrapper from "@/components/CommonWrapper";
 import GetLocation from "@/components/GetLocation";
 
 export default function Cadastrar() {
-  return <GetLocation />;
+  return (
+    <CommonWrapper>
+      <GetLocation />
+    </CommonWrapper>
+  );
 }
