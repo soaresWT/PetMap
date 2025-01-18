@@ -1,5 +1,5 @@
 import { Flex, Text, Link } from "@radix-ui/themes";
-
+import Image from "next/image";
 export default function Header() {
   return (
     <Flex
@@ -16,9 +16,12 @@ export default function Header() {
         zIndex: 1000,
       }}
     >
-      <Text>
-        <Link href="/">PetMap</Link>
-      </Text>
+      <Link href="/">
+        <Flex align="center" justify="center" direction="row">
+          <Image src="/logo.svg" alt="logo" height={50} width={50} />
+          <Text weight="bold"> PetMap</Text>
+        </Flex>
+      </Link>
     </Flex>
   );
 }

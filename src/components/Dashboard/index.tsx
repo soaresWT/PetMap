@@ -2,11 +2,12 @@
 import { supabase } from "@/utils/supabase";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { Table } from "@radix-ui/themes";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import Image from "next/image";
 const icon = new L.Icon({
-  iconUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  iconUrl: "/file.svg",
   iconSize: [25, 41],
   iconAnchor: [12, 41],
 });
@@ -16,7 +17,7 @@ export default function Dashboard() {
   const [isClient, setIsClient] = useState(false);
   interface Animal {
     id: number;
-    name: string;
+    animal_type: string;
     photo_url: string;
     description: string;
     latitude: number;
@@ -52,6 +53,7 @@ export default function Dashboard() {
         console.error("Erro ao buscar dados:", error);
       } else {
         setAnimais(data);
+        console.log(data);
       }
     };
 
@@ -62,7 +64,7 @@ export default function Dashboard() {
       {position && (
         <MapContainer
           center={position}
-          zoom={13}
+          zoom={20}
           style={{ height: "100vh", width: "100%" }}
         >
           <TileLayer
@@ -76,11 +78,41 @@ export default function Dashboard() {
               icon={icon}
             >
               <Popup>
-                {animal.name} <br /> {animal.description}
+                {animal.animal_type} <br /> {animal.description}
               </Popup>
             </Marker>
           ))}
         </MapContainer>
+      )}
+      {animais && (
+        <>
+          <Table.Root>
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeaderCell>Especie</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Descrição</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Foto</Table.ColumnHeaderCell>
+              </Table.Row>
+            </Table.Header>
+
+            <Table.Body>
+              {animais.map((animal) => (
+                <Table.Row key={animal.id}>
+                  <Table.Cell>{animal.animal_type}</Table.Cell>
+                  <Table.Cell>{animal.description}</Table.Cell>
+                  <Table.Cell>
+                    <Image
+                      src={animal.photo_url}
+                      alt="animal"
+                      width={50}
+                      height={50}
+                    />
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Root>
+        </>
       )}
     </>
   );
