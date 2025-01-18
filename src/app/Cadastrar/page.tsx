@@ -1,3 +1,4 @@
+"use client";
 import CommonWrapper from "@/components/CommonWrapper";
 import GetLocation from "@/components/GetLocation";
 
