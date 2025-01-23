@@ -9,22 +9,35 @@ export default function Home() {
       <Flex
         direction="column"
         align="center"
-        style={{ gap: "1rem", padding: "1rem" }}
+        style={{ gap: "2rem", padding: "2rem", backgroundColor: "#f9f9f9" }}
       >
-        <Heading weight="bold">📸 Capture, Localize, Transforme!</Heading>
-        <Card style={{ width: "100%", maxWidth: "800px", padding: "1rem" }}>
+        <Heading weight="bold" style={{ color: "#333", fontSize: "2rem" }}>
+          📸 Capture, Localize, Transforme!
+        </Heading>
+        <Card
+          style={{
+            width: "100%",
+            maxWidth: "800px",
+            padding: "2rem",
+            backgroundColor: "#fff",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.6)",
+            borderRadius: "10px",
+            border: "1px solid #ddd",
+            transition: "transform 0.3s, box-shadow 0.3s",
+          }}
+        >
           <Flex
             direction={{ initial: "column", md: "row" }}
-            style={{ gap: "1rem" }}
+            style={{ gap: "1.5rem" }}
           >
             <Image
               src="/Cat2.jpg"
               alt="Imagem de um animal de rua"
               width={400}
               height={600}
-              style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+              style={{ width: "100%", height: "auto", borderRadius: "10px" }}
             />
-            <Text style={{ textAlign: "justify", marginTop: "1rem" }}>
+            <Text style={{ textAlign: "justify", marginTop: "1rem", color: "#555" }}>
               Nosso sistema conecta pessoas apaixonadas por ajudar animais de
               rua com soluções práticas para transformar suas vidas. Basta tirar
               uma foto do animal de rua, e nós cuidamos do resto. A plataforma
@@ -33,8 +46,19 @@ export default function Home() {
             </Text>
           </Flex>
         </Card>
-        <Card style={{ width: "100%", maxWidth: "800px", padding: "1rem" }}>
-          <Text style={{ textAlign: "justify" }}>
+        <Card
+          style={{
+            width: "100%",
+            maxWidth: "800px",
+            padding: "2rem",
+            backgroundColor: "#fff",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.6)",
+            borderRadius: "10px",
+            border: "1px solid #ddd",
+            transition: "transform 0.3s, box-shadow 0.3s",
+          }}
+        >
+          <Text style={{ textAlign: "justify", color: "#555" }}>
             <strong>O problema dos animais de rua</strong>
             <br />é uma questão urgente que afeta tanto os animais quanto a
             saúde pública. Milhões de cães e gatos vivem abandonados nas ruas,
@@ -47,13 +71,18 @@ export default function Home() {
           style={{
             width: "100%",
             maxWidth: "800px",
-            padding: "1rem",
+            padding: "2rem",
+            backgroundColor: "#fff",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.6)",
+            borderRadius: "10px",
             marginTop: "1rem",
+            border: "1px solid #ddd",
+            transition: "transform 0.3s, box-shadow 0.3s",
           }}
         >
-          <Text style={{ textAlign: "justify" }}>
+          <Text style={{ textAlign: "justify", color: "#555" }}>
             <strong>Por Que Isso Importa?</strong>
-            <ul>
+            <ul style={{ paddingLeft: "1.5rem", marginTop: "0.5rem" }}>
               <li>
                 <strong>Saúde Pública: </strong>Animais de rua podem transmitir
                 doenças como raiva e leishmaniose.
@@ -76,13 +105,18 @@ export default function Home() {
           style={{
             width: "100%",
             maxWidth: "800px",
-            padding: "1rem",
+            padding: "2rem",
+            backgroundColor: "#fff",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.6)",
+            borderRadius: "10px",
             marginTop: "1rem",
+            border: "1px solid #ddd",
+            transition: "transform 0.3s, box-shadow 0.3s",
           }}
         >
-          <Text style={{ textAlign: "justify" }}>
+          <Text style={{ textAlign: "justify", color: "#555" }}>
             <strong>Por que Participar?</strong>
-            <ul>
+            <ul style={{ paddingLeft: "1.5rem", marginTop: "0.5rem" }}>
               <li>
                 🐾 Apoie o Bem-Estar Animal: Facilite ações de resgate e
                 cuidados.
@@ -102,13 +136,18 @@ export default function Home() {
           style={{
             width: "100%",
             maxWidth: "800px",
-            padding: "1rem",
+            padding: "2rem",
+            backgroundColor: "#fff",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.6)",
+            borderRadius: "10px",
             marginTop: "1rem",
+            border: "1px solid #ddd",
+            transition: "transform 0.3s, box-shadow 0.3s",
           }}
         >
-          <Text style={{ textAlign: "justify" }}>
+          <Text style={{ textAlign: "justify", color: "#555" }}>
             <strong>Como Funciona?</strong>
-            <ul>
+            <ul style={{ paddingLeft: "1.5rem", marginTop: "0.5rem" }}>
               <li>Fotografe: Registre o animal diretamente pelo app.</li>
               <li>Envie: Suba a foto com um clique.</li>
               <li>
@@ -121,11 +160,16 @@ export default function Home() {
           style={{
             width: "100%",
             maxWidth: "800px",
-            padding: "1rem",
+            padding: "2rem",
+            backgroundColor: "#fff",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.6)",
+            borderRadius: "10px",
             marginTop: "1rem",
+            border: "1px solid #ddd",
+            transition: "transform 0.3s, box-shadow 0.3s",
           }}
         >
-          <Text style={{ textAlign: "justify" }}>
+          <Text style={{ textAlign: "justify", color: "#555" }}>
             <strong>Faça Parte da Solução</strong>
             <br />
             Animais de rua precisam de visibilidade, cuidado e apoio. Sua
@@ -134,7 +178,9 @@ export default function Home() {
             <br />
             👉 Comece agora e ajude a transformar o futuro desses animais.
             <br />
-            <Link href="/Cadastrar">Acesse Agora!</Link>
+            <Link href="/Cadastrar" style={{ color: "#0070f3", textDecoration: "underline" }}>
+              Acesse Agora!
+            </Link>
           </Text>
         </Card>
       </Flex>

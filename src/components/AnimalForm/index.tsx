@@ -11,9 +11,12 @@ import {
 } from "@radix-ui/themes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import styles from "./AnimalForm.module.css";
+
 type AnimalFormProps = {
   location: { lat: number; lng: number } | null;
 };
+
 const AnimalForm = ({ location }: AnimalFormProps) => {
   const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
@@ -105,18 +108,15 @@ const AnimalForm = ({ location }: AnimalFormProps) => {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1 style={{ textAlign: "center" }}>Registrar Animal</h1>
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-      >
+    <div className={styles.container}>
+      <h1 className={styles.title}>Registrar Animal</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <Flex direction="column" gap="2">
-          <Text htmlFor="animalType" style={{ marginBottom: "0.5rem" }}>
+          <Text htmlFor="animalType" className={styles.label}>
             Tipo do Animal:
           </Text>
           <Select.Root onValueChange={setAnimalType}>
-            <Select.Trigger className="select-trigger">
+            <Select.Trigger className={styles.selectTrigger}>
               <Text>{animalType || "Selecione o tipo de animal"}</Text>
             </Select.Trigger>
             <Select.Content>
@@ -127,7 +127,7 @@ const AnimalForm = ({ location }: AnimalFormProps) => {
         </Flex>
 
         <Flex direction="column" gap="2">
-          <Text htmlFor="description" style={{ marginBottom: "0.5rem" }}>
+          <Text htmlFor="description" className={styles.label}>
             Descrição:
           </Text>
           <textarea
@@ -135,16 +135,12 @@ const AnimalForm = ({ location }: AnimalFormProps) => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
-            style={{
-              padding: "0.5rem",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-            }}
+            className={styles.textarea}
           />
         </Flex>
 
         <Flex direction="column" gap="2">
-          <Text htmlFor="fileInput" style={{ marginBottom: "0.5rem" }}>
+          <Text htmlFor="fileInput" className={styles.label}>
             Upload de Imagem:
           </Text>
           <input
@@ -154,24 +150,20 @@ const AnimalForm = ({ location }: AnimalFormProps) => {
             capture="environment"
             onChange={handleFileChange}
             required
-            style={{
-              padding: "0.5rem",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-            }}
+            className={styles.fileInput}
           />
         </Flex>
 
         <Button
           onClick={handleUpload}
           disabled={uploading}
-          style={{ marginTop: "1rem" }}
+          className={styles.button}
         >
           {uploading ? "Enviando Imagem..." : "Enviar Imagem"}
         </Button>
 
         {uploading && (
-          <Box maxWidth="300px" style={{ marginTop: "1rem" }}>
+          <Box maxWidth="300px" className={styles.progressBox}>
             <Progress />
           </Box>
         )}
@@ -179,14 +171,14 @@ const AnimalForm = ({ location }: AnimalFormProps) => {
         <Button
           type="submit"
           disabled={uploading}
-          style={{ marginTop: "1rem" }}
+          className={styles.button}
         >
           {uploading ? "Enviando..." : "Enviar"}
         </Button>
       </form>
 
       {imageUrl && (
-        <div style={{ textAlign: "center", marginTop: "2rem" }}>
+        <div className={styles.imageContainer}>
           <h3>Imagem enviada com sucesso!</h3>
           <Image src={imageUrl} alt="Imagem carregada" width={50} height={50} />
         </div>

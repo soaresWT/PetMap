@@ -65,7 +65,7 @@ export default function Dashboard() {
         <MapContainer
           center={position}
           zoom={20}
-          style={{ height: "100vh", width: "100%" }}
+          style={{ height: "100vh", width: "100%", borderRadius: "10px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -86,7 +86,7 @@ export default function Dashboard() {
       )}
       {animais && (
         <>
-          <Table.Root>
+          <Table.Root style={{ marginTop: "20px", borderRadius: "10px", overflow: "hidden", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeaderCell>Especie</Table.ColumnHeaderCell>

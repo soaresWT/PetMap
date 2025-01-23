@@ -37,7 +37,7 @@ export default function MapWithConfirmation({
         },
         {
           enableHighAccuracy: true,
-          timeout: 10000,
+          timeout: 1000000,
           maximumAge: 0,
         }
       );
@@ -53,14 +53,13 @@ export default function MapWithConfirmation({
   };
 
   return (
-    <Flex direction="column" justify={"center"}>
+    <Flex direction="column" justify={"center"} align="center" style={{ position: "relative", height: "calc(100vh - 60px)", width: "100%" }}>
       {position ? (
         <>
-          <Text>você esta aqui!</Text>
           <MapContainer
             center={position}
             zoom={13}
-            style={{ height: "400px", width: "100%", maxWidth: "600px" }}
+            style={{ height: "calc(100vh - 120px)", width: "100%", zIndex: 1 }}
           >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             <Marker position={position} icon={icon}>
@@ -68,7 +67,9 @@ export default function MapWithConfirmation({
             </Marker>
           </MapContainer>
           {!isConfirmed && (
-            <Button onClick={handleConfirm}>Confirmar Localização</Button>
+            <Button onClick={handleConfirm} style={{ marginTop: "20px", marginBottom: "25px", backgroundColor: "#C11C84", color: "#fff", borderRadius: "5px", padding: "1rem 2rem", fontSize: "1rem", zIndex: 2 }}>
+              Confirmar Localização
+            </Button>
           )}
         </>
       ) : (
