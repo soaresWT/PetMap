@@ -1,13 +1,12 @@
-"use client";
 import { supabase } from "@/utils/supabase";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { Flex, Spinner, Table } from "@radix-ui/themes";
+import { Flex, Skeleton, Spinner, Table } from "@radix-ui/themes";
 import "leaflet/dist/leaflet.css";
-import { Animal } from "@/app/interfaces/animal";
+import { Animal } from "@/interfaces/animal";
 import L from "leaflet";
+import { getStreetName } from "@/app/requests/getStreet";
 import Image from "next/image";
-
 const iconDog = new L.Icon({
   iconUrl: "/cachorroIcon.png",
   iconSize: [25, 25],
@@ -19,11 +18,13 @@ const iconCat = new L.Icon({
   iconSize: [25, 25],
   iconAnchor: [12, 41],
 });
+
 export default function Dashboard() {
   const [position, setPosition] = useState<[number, number] | null>(null);
   const [isClient, setIsClient] = useState(false);
-
   const [animais, setAnimais] = useState<Animal[]>([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -51,13 +52,31 @@ export default function Dashboard() {
       if (error) {
         console.error("Erro ao buscar dados:", error);
       } else {
-        setAnimais(data);
-        console.log(data);
+        const updatedData = await Promise.all(
+          data.map(async (animal) => {
+            const streetName = await getStreetName(
+              animal.latitude,
+              animal.longitude
+            );
+            return { ...animal, street: streetName };
+          })
+        );
+        setAnimais(updatedData);
+        setLoading(false);
       }
     };
-
     fetchLocations();
   }, [isClient]);
+
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    };
+    return new Date(dateString).toLocaleDateString("pt-BR", options);
+  };
+
   return (
     <>
       {!position && (
@@ -87,28 +106,79 @@ export default function Dashboard() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
-          {animais.map(
-            (animal) => (
-              console.log(animal),
-              (
-                <Marker
-                  key={animal.id}
-                  position={[animal.latitude, animal.longitude]}
-                  icon={animal.animal_type === "cachorro" ? iconDog : iconCat}
-                >
-                  <Popup>
-                    {animal.animal_type} <br /> {animal.description}
-                  </Popup>
-                </Marker>
-              )
-            )
-          )}
+          {animais.map((animal) => (
+            <Marker
+              key={animal.id}
+              position={[animal.latitude, animal.longitude]}
+              icon={animal.animal_type === "cachorro" ? iconDog : iconCat}
+            >
+              <Popup>
+                {animal.animal_type} <br /> {animal.description}
+              </Popup>
+            </Marker>
+          ))}
         </MapContainer>
       )}
-      {animais && (
+      {loading ? (
         <Flex width="100%" justify="center">
           <Table.Root
-            variant="surface"
+            variant="ghost"
+            size="3"
+            layout="auto"
+            style={{ marginTop: "25px" }}
+          >
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeaderCell>
+                  <Skeleton width="100px" height="20px" />
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  <Skeleton width="100px" height="20px" />
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  <Skeleton width="100px" height="20px" />
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  <Skeleton width="100px" height="20px" />
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  <Skeleton width="100px" height="20px" />
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  <Skeleton width="100px" height="20px" />
+                </Table.ColumnHeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {Array.from({ length: 5 }).map((_, index) => (
+                <Table.Row key={index}>
+                  <Table.Cell>
+                    <Skeleton width="100px" height="20px" />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Skeleton width="100px" height="20px" />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Skeleton width="50px" height="50px" />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Skeleton width="100px" height="20px" />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Skeleton width="100px" height="20px" />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Skeleton width="100px" height="20px" />
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Root>
+        </Flex>
+      ) : (
+        <Flex width="100%" justify="center">
+          <Table.Root
+            variant="ghost"
             size="3"
             layout="auto"
             style={{ marginTop: "25px" }}
@@ -123,7 +193,6 @@ export default function Dashboard() {
                 <Table.ColumnHeaderCell>Criado em</Table.ColumnHeaderCell>
               </Table.Row>
             </Table.Header>
-
             <Table.Body>
               {animais.map((animal) => (
                 <Table.Row key={animal.id}>
@@ -137,11 +206,9 @@ export default function Dashboard() {
                       height={50}
                     />
                   </Table.Cell>
-                  <Table.Cell>
-                    {animal.latitude}, {animal.longitude}
-                  </Table.Cell>
-                  <Table.Cell>{animal.updated_at}</Table.Cell>
-                  <Table.Cell>{animal.created_at}</Table.Cell>
+                  <Table.Cell> {animal.street}</Table.Cell>
+                  <Table.Cell>{formatDate(animal.updated_at)}</Table.Cell>
+                  <Table.Cell>{formatDate(animal.created_at)}</Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>

@@ -5,6 +5,7 @@ export interface Animal {
   description: string;
   latitude: number;
   longitude: number;
+  street?: string;
   updated_at: string;
   created_at: string;
 }

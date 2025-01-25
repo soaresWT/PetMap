@@ -13,6 +13,7 @@
     "@radix-ui/themes": "^3.1.6",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.16",
+    "axios": "^1.7.9",
     "leaflet": "^1.9.4",
     "next": "15.1.5",
     "react": "^19.0.0",
