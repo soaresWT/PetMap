@@ -2,27 +2,26 @@
 import { supabase } from "@/utils/supabase";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { Table } from "@radix-ui/themes";
+import { Flex, Spinner, Table } from "@radix-ui/themes";
 import "leaflet/dist/leaflet.css";
+import { Animal } from "@/app/interfaces/animal";
 import L from "leaflet";
 import Image from "next/image";
-const icon = new L.Icon({
-  iconUrl: "/file.svg",
-  iconSize: [25, 41],
+
+const iconDog = new L.Icon({
+  iconUrl: "/cachorroIcon.png",
+  iconSize: [25, 25],
   iconAnchor: [12, 41],
 });
 
+const iconCat = new L.Icon({
+  iconUrl: "/gatoIcon.png",
+  iconSize: [25, 25],
+  iconAnchor: [12, 41],
+});
 export default function Dashboard() {
   const [position, setPosition] = useState<[number, number] | null>(null);
   const [isClient, setIsClient] = useState(false);
-  interface Animal {
-    id: number;
-    animal_type: string;
-    photo_url: string;
-    description: string;
-    latitude: number;
-    longitude: number;
-  }
 
   const [animais, setAnimais] = useState<Animal[]>([]);
   useEffect(() => {
@@ -61,37 +60,67 @@ export default function Dashboard() {
   }, [isClient]);
   return (
     <>
+      {!position && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "50px",
+            height: "50vh",
+            width: "100%",
+          }}
+        >
+          <Flex display={"flex"} direction={"column"} align={"center"}>
+            <Spinner />
+            <h1>Estamos buscando animais na sua região</h1>
+          </Flex>
+        </div>
+      )}
       {position && (
         <MapContainer
           center={position}
           zoom={20}
-          style={{ height: "100vh", width: "100%" }}
+          style={{ height: "50vh", width: "100%", marginTop: "20px" }}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
-          {animais.map((animal) => (
-            <Marker
-              key={animal.id}
-              position={[animal.latitude, animal.longitude]}
-              icon={icon}
-            >
-              <Popup>
-                {animal.animal_type} <br /> {animal.description}
-              </Popup>
-            </Marker>
-          ))}
+          {animais.map(
+            (animal) => (
+              console.log(animal),
+              (
+                <Marker
+                  key={animal.id}
+                  position={[animal.latitude, animal.longitude]}
+                  icon={animal.animal_type === "cachorro" ? iconDog : iconCat}
+                >
+                  <Popup>
+                    {animal.animal_type} <br /> {animal.description}
+                  </Popup>
+                </Marker>
+              )
+            )
+          )}
         </MapContainer>
       )}
       {animais && (
-        <>
-          <Table.Root>
+        <Flex width="100%" justify="center">
+          <Table.Root
+            variant="surface"
+            size="3"
+            layout="auto"
+            style={{ marginTop: "25px" }}
+          >
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeaderCell>Especie</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Descrição</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Foto</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Localização</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Atualizado em</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Criado em</Table.ColumnHeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -108,11 +137,16 @@ export default function Dashboard() {
                       height={50}
                     />
                   </Table.Cell>
+                  <Table.Cell>
+                    {animal.latitude}, {animal.longitude}
+                  </Table.Cell>
+                  <Table.Cell>{animal.updated_at}</Table.Cell>
+                  <Table.Cell>{animal.created_at}</Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>
           </Table.Root>
-        </>
+        </Flex>
       )}
     </>
   );
