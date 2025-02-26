@@ -11,6 +11,7 @@ import {
 } from "@radix-ui/themes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { getStreetName } from "@/app/requests/getStreet";
 type AnimalFormProps = {
   location: { lat: number; lng: number } | null;
 };
@@ -27,6 +28,7 @@ const AnimalForm = ({ location }: AnimalFormProps) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setFile(event.target.files[0]);
+      handleUpload();
     }
   };
 
@@ -85,6 +87,7 @@ const AnimalForm = ({ location }: AnimalFormProps) => {
           photo_url: publicUrl,
           latitude: location.lat,
           longitude: location.lng,
+          street: await getStreetName(location.lat, location.lng),
         },
       ]);
 
@@ -161,14 +164,6 @@ const AnimalForm = ({ location }: AnimalFormProps) => {
             }}
           />
         </Flex>
-
-        <Button
-          onClick={handleUpload}
-          disabled={uploading}
-          style={{ marginTop: "1rem" }}
-        >
-          {uploading ? "Enviando Imagem..." : "Enviar Imagem"}
-        </Button>
 
         {uploading && (
           <Box maxWidth="300px" style={{ marginTop: "1rem" }}>

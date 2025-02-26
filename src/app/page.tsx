@@ -9,10 +9,23 @@ export default function Home() {
       <Flex
         direction="column"
         align="center"
-        style={{ gap: "1rem", padding: "1rem" }}
+        style={{
+          gap: "1rem",
+          padding: "1rem",
+          marginTop: "1rem",
+          backgroundColor: "var(--secondary-pink)",
+        }}
       >
         <Heading weight="bold">📸 Capture, Localize, Transforme!</Heading>
-        <Card style={{ width: "100%", maxWidth: "800px", padding: "1rem" }}>
+        <Card
+          variant="classic"
+          style={{
+            width: "100%",
+            maxWidth: "800px",
+            padding: "1rem",
+            backgroundColor: "var(--white)",
+          }}
+        >
           <Flex
             direction={{ initial: "column", md: "row" }}
             style={{ gap: "1rem" }}

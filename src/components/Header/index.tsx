@@ -1,4 +1,5 @@
 import { Flex, Text, Link } from "@radix-ui/themes";
+
 import Image from "next/image";
 export default function Header() {
   return (
@@ -10,7 +11,7 @@ export default function Header() {
         position: "fixed",
         top: 0,
         width: "100%",
-        backgroundColor: "white",
+        backgroundColor: "var(--primary-pink)",
         padding: "1rem",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
         zIndex: 1000,
@@ -22,6 +23,14 @@ export default function Header() {
           <Text weight="bold"> PetMap</Text>
         </Flex>
       </Link>
+      <Flex>
+        <Link href="/Cadastrar" style={{ marginRight: "1rem" }}>
+          Cadastrar animal
+        </Link>
+        <Link href="/Painel">
+          <Text>Login</Text>
+        </Link>
+      </Flex>
     </Flex>
   );
 }
