@@ -26,25 +26,20 @@ export default function Home() {
             backgroundColor: "var(--white)",
           }}
         >
-          <Flex
-            direction={{ initial: "column", md: "row" }}
-            style={{ gap: "1rem" }}
-          >
-            <Image
-              src="/Cat2.jpg"
-              alt="Imagem de um animal de rua"
-              width={400}
-              height={600}
-              style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-            />
-            <Text style={{ textAlign: "justify", marginTop: "1rem" }}>
-              Nosso sistema conecta pessoas apaixonadas por ajudar animais de
-              rua com soluções práticas para transformar suas vidas. Basta tirar
-              uma foto do animal de rua, e nós cuidamos do resto. A plataforma
-              registra automaticamente a localização e mapeia esses dados,
-              criando um retrato detalhado da situação na sua cidade.
-            </Text>
-          </Flex>
+          <Image
+            src="/Cat2.jpg"
+            alt="Imagem de um animal de rua"
+            width={400}
+            height={600}
+            style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+          />
+          <Text style={{ textAlign: "justify", marginTop: "3rem" }}>
+            Nosso sistema conecta pessoas apaixonadas por ajudar animais de rua
+            com soluções práticas para transformar suas vidas. Basta tirar uma
+            foto do animal de rua, e nós cuidamos do resto. A plataforma
+            registra automaticamente a localização e mapeia esses dados, criando
+            um retrato detalhado da situação na sua cidade.
+          </Text>
         </Card>
         <Card style={{ width: "100%", maxWidth: "800px", padding: "1rem" }}>
           <Text style={{ textAlign: "justify" }}>
