@@ -2,6 +2,7 @@ import { supabase } from "@/utils/supabase";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Flex, Skeleton, Spinner, Table } from "@radix-ui/themes";
+import * as Dialog from "@radix-ui/react-dialog";
 import "leaflet/dist/leaflet.css";
 import { Animal } from "@/interfaces/animal";
 import * as L from "leaflet";
@@ -24,6 +25,8 @@ export default function Dashboard() {
   const [isClient, setIsClient] = useState(false);
   const [animais, setAnimais] = useState<Animal[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -107,7 +110,29 @@ export default function Dashboard() {
               icon={animal.animal_type === "cachorro" ? iconDog : iconCat}
             >
               <Popup>
-                {animal.animal_type} <br /> {animal.description}
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "10px",
+                    borderRadius: "8px",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                    height: "250px",
+                    width: "450px",
+                  }}
+                >
+                  <Image
+                    src={animal.photo_url}
+                    alt={animal.animal_type}
+                    width={100}
+                    height={100}
+                    onClick={() => setSelectedImage(animal.photo_url)}
+                    style={{ cursor: "pointer" }}
+                  />
+                  <div style={{ marginTop: "10px" }}>
+                    <strong>{animal.animal_type}</strong> <br />{" "}
+                    {animal.description}
+                  </div>
+                </div>
               </Popup>
             </Marker>
           ))}
@@ -198,6 +223,8 @@ export default function Dashboard() {
                       alt="animal"
                       width={50}
                       height={50}
+                      onClick={() => setSelectedImage(animal.photo_url)}
+                      style={{ cursor: "pointer" }}
                     />
                   </Table.Cell>
                   <Table.Cell> {animal.street}</Table.Cell>
@@ -209,6 +236,50 @@ export default function Dashboard() {
           </Table.Root>
         </Flex>
       )}
+
+      <Dialog.Root
+        open={!!selectedImage}
+        onOpenChange={() => setSelectedImage(null)}
+      >
+        <Dialog.Title>Imagem</Dialog.Title>
+        <Dialog.Overlay
+          style={{
+            background: "rgba(0, 0, 0, 0.5)",
+            position: "fixed",
+            inset: 0,
+          }}
+        />
+        <Dialog.Content
+          style={{
+            background: "white",
+            borderRadius: "8px",
+            padding: "20px",
+            maxWidth: "90vw",
+            maxHeight: "90vh",
+            overflow: "auto",
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            zIndex: 1000,
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          {selectedImage && (
+            <Image
+              src={selectedImage}
+              alt="Preview"
+              width={1600}
+              height={900}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+                width: "auto",
+                height: "auto",
+              }}
+            />
+          )}
+        </Dialog.Content>
+      </Dialog.Root>
     </>
   );
 }
